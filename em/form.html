@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* Add a background color when the inputs get focus */
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+button:hover {
+  opacity:1;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+  float: left;
+  width: 50%;
+}
+
+/* Add padding to container elements */
+.container {
+  padding: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: #474e5d;
+  padding-top: 50px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* Style the horizontal ruler */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+ 
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+  color: #f44336;
+  cursor: pointer;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+#example1 {
+  height:100%;
+  padding:10px;
+  background: gold linear-gradient(to bottom, lightgreen, lightblue);
+  }
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancelbtn, .signupbtn {
+     width: 100%;
+  }
+}
+</style>
+<body id="example1">
+<div class="row" >
+</div>
+<div class="vertical-center">
+  <h2>Welcome to Entry Management Software</h2>
+  <center>
+  <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Check In</button>
+  <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Check Out</button>
+  </center>
+</div>
+<div id="id01" class="modal" >
+  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+  <form class="modal-content" action="#"  onsubmit ="checkin()" method="post"  >
+    <div class="container">
+      <p>Please fill in this form to check in.</p>
+      <hr>
+      <label for="name"><b>Your Name</b></label>
+      <input type="text" placeholder="Enter name" name="your_name" required>
+      <label for="email"><b>Your Email</b></label>
+      <input type="text" placeholder="Enter Email" name="your_email" required>
+
+      <label for="phone"><b>Your Phone</b></label>
+      <input type="text" placeholder="Enter Phone" name="your_psw" required maxlength="10" pattern="[789][0-9]{9}"><br>
+      <label for="name"><b>Host Name</b></label>
+      <input type="text" placeholder="Enter name" name="host_name" required>
+      <label for="email"><b>Host Email</b></label>
+      <input type="text" placeholder="Enter Email" name="host_email" required>
+
+      <label for="phone"><b>Host Phone</b></label>
+      <input type="text" placeholder="Enter Phone" name="host_psw" required maxlength="10" pattern="[789][0-9]{9}">      
+      <div class="clearfix">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+        <button type="submit" class="signupbtn" >Check in</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div id="id02" class="modal">
+  <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+  <form class="modal-content" action="#" onsubmit ="checkout()" method="post">
+    <div class="container">
+      <p>Please fill in this form to check out.</p>
+      <hr>
+      <label for="phone"><b>Your Phone</b></label>
+      <input type="text" placeholder="Enter Phone" name="phone" required maxlength="10" pattern="[789][0-9]{9}"><br>     
+      <div class="clearfix">
+        <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+        <button type="submit" class="signupbtn" >Check out</button>
+      </div>
+    </div>
+  </form>
+</div>
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+var modal2 = document.getElementById('id02');
+window.onclick = function(event) {
+  if (event.target == modal || event.target == modal2 ) {
+    modal.style.display = "none";
+}
+}
+function checkin() {
+
+    var your_name,your_email,your_psw,host_name,host_email,host_psw;
+
+    your_name = document.getElementsByName("your_name")[0].value;
+    your_email = document.getElementsByName("your_email")[0].value;
+    your_psw = document.getElementsByName("your_psw")[0].value;
+    host_name = document.getElementsByName("host_name")[0].value;
+    host_email = document.getElementsByName("host_email")[0].value;
+    host_psw = document.getElementsByName("host_psw")[0].value;
+    var j = {
+        "visitor_name": your_name,
+        "visitor_email": your_email,
+        "visitor_phone": your_psw,
+        "host_name": host_name,
+        "host_email": host_email,
+        "host_phone": host_psw
+    };
+
+
+    var a = JSON.stringify(j);
+    var xmlhttp = new XMLHttpRequest();
+    var data;
+    xmlhttp.onreadystatechange = function () {
+
+
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            console.log(data)
+            data = JSON.parse(xmlhttp.response);
+                alert(data.message);
+                // window.location.href = "file:///C:/Users/HP/Desktop/EMA/entry_management/em/form.html";
+            
+
+           
+
+        }
+
+    }
+   
+    xmlhttp.open("POST", "http://127.0.0.1:8000/em/checkin/", true);
+    xmlhttp.setRequestHeader("Content-type", "application/json");
+    console.log(a);
+    xmlhttp.send(a);
+}
+function checkout() {
+    var phone=document.getElementsByName("phone")[0].value;
+    console.log(phone);
+    var xmlhttp = new XMLHttpRequest();
+    var data;
+    var j = {
+        "visitor_phone": phone
+    };
+    console.log(j);
+
+    var s = JSON.stringify(j);
+    xmlhttp.onreadystatechange = function () {
+
+
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            console.log(data)
+            data = JSON.parse(xmlhttp.response);
+                alert(data.message);
+                // window.location.href = "file:///C:/Users/HP/Desktop/EMA/entry_management/em/form.html";
+            
+
+           
+
+        }
+
+    }
+   
+    xmlhttp.open("POST", "http://127.0.0.1:8000/em/checkout/", true);
+    xmlhttp.setRequestHeader("Content-type", "application/json");
+    xmlhttp.send(s);
+    console.log("hi");
+
+
+}
+</script>
+
+</body>
+</html>
