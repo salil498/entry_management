@@ -1,7 +1,7 @@
 # entry_management
 This is an entry management software that  manages the entry details of the visitors
 The backend is done using django and frontend is done by simple javascript. As soon as the visitor enters the details a message and a mail is triggere to the corresponding host with the details of the user and once he checks out he gets a mail and message with the details of the visit.
-Packages required --> yagmail. pip install yagmail
+Packages required --> yagmail. pip install yagmail . 
 sms is sent through--> smsjust.com api
 To send the mail replace with your email and password in the views.py file and to send the message create an account on smsjust.com and enter the corresponding details in the views.py file
 
